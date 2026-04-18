@@ -1,0 +1,362 @@
+/* ─── AppShell.css — HCLPharma Application Shell ────────────────────────────
+   Design tokens mirror LoginPage.css exactly.
+   Theme: deep navy primary (#0D2B5E), teal accent (#0A7E6E), warm white surface
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Google Fonts (same as LoginPage) ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Inter:wght@400;500&display=swap');
+
+/* ── Design tokens (shared with LoginPage) ─────────────────────────────────── */
+:root {
+  --hcl-navy:        #0D2B5E;
+  --hcl-navy-dark:   #091E45;
+  --hcl-navy-light:  #1A3F7A;
+  --hcl-teal:        #0A7E6E;
+  --hcl-teal-light:  #E0F5F2;
+
+  --surface:         #FFFFFF;
+  --surface-sub:     #F7F8FB;
+  --border:          #DDE1EA;
+  --border-focus:    #0A7E6E;
+  --text-primary:    #0F1A2E;
+  --text-secondary:  #4A5568;
+  --text-muted:      #8A94A6;
+
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+
+  --shadow-card:
+    0 0 0 1px rgba(13,43,94,0.06),
+    0 4px 16px rgba(13,43,94,0.08),
+    0 20px 40px rgba(13,43,94,0.10);
+
+  --shadow-topbar:
+    0 1px 0 rgba(13,43,94,0.08),
+    0 2px 12px rgba(13,43,94,0.06);
+
+  --font-display: 'DM Sans',  system-ui, sans-serif;
+  --font-body:    'Inter',    system-ui, sans-serif;
+
+  --transition-fast:   150ms cubic-bezier(0.4,0,0.2,1);
+  --transition-normal: 250ms cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── Dark mode ──────────────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface:        #111827;
+    --surface-sub:    #1C2637;
+    --border:         #2D3748;
+    --border-focus:   #14B8A6;
+    --text-primary:   #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted:     #4A5568;
+    --hcl-navy:       #3B82F6;
+    --hcl-navy-dark:  #2563EB;
+    --hcl-navy-light: #1E3A5F;
+    --hcl-teal:       #14B8A6;
+    --hcl-teal-light: #0F2F2D;
+    --shadow-topbar:
+      0 1px 0 rgba(255,255,255,0.05),
+      0 2px 12px rgba(0,0,0,0.30);
+  }
+}
+
+/* ── app-frame ──────────────────────────────────────────────────────────────── */
+/*
+ * Root layout container. CSS Grid with three rows:
+ * topbar (auto) + navbar (auto) + main (1fr fills remaining height).
+ * min-height: 100dvh uses dynamic viewport height so it works on mobile browsers.
+ */
+.app-frame {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  min-height: 100dvh;
+  background: var(--surface-sub);
+  font-family: var(--font-body);
+  color: var(--text-primary);
+}
+
+/* ── topbar ── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 68px;
+  background: var(--hcl-navy);
+  box-shadow: var(--shadow-topbar);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.shell-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+/* ── topbar brand block ────────────────────────────────────────────────────── */
+.topbar .eyebrow {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+.topbar h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* ── topbar right-side actions ────────────────────────────────────────────── */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+/*
+ * user-chip:
+ * Pill badge showing the logged-in user's name and role.
+ * White semi-transparent border keeps it crisp against the navy header.
+ */
+.user-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.user-chip span:first-child {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.user-chip span:last-child {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hcl-teal);
+  /* teal accent carries over from LoginPage valid-state colour */
+  background: rgba(10,126,110,0.18);
+  padding: 1px 6px;
+  border-radius: 99px;
+  border: 1px solid rgba(10,126,110,0.35);
+}
+
+/*
+ * muted-label:
+ * Shown when no user is authenticated — tagline text.
+ */
+.muted-label {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+  font-style: italic;
+}
+
+/* ── navbar ── */
+.navbar {
+  height: 46px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(13,43,94,0.04);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 100%;
+}
+
+/* ── nav-link ────────────────────────────────────────────────────────────────── */
+/*
+ * Each NavLink gets this class via the getNavLinkClassName callback.
+ * Mimics the tab style from LoginPage: no background at rest, teal active indicator.
+ * The ::after pseudo-element is the sliding bottom underline — same teal as LoginPage's
+ * focus ring / valid-state colour (#0A7E6E).
+ */
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 46px;
+  padding: 0 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 0;
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0.875rem;
+  right: 0.875rem;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--hcl-teal);
+  opacity: 0;
+  transform: scaleX(0.5);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.nav-link:hover::after {
+  opacity: 0.35;
+  transform: scaleX(1);
+}
+
+.nav-link.active {
+  color: var(--hcl-navy);
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── nav-spacer ─────────────────────────────────────────────────────────────── */
+/* Flex spacer that pushes the logout button to the far right */
+.nav-spacer {
+  flex: 1;
+}
+
+/* ── ghost-button (Logout) ──────────────────────────────────────────────────── */
+/*
+ * Matches the overall minimal style — text-only button with teal on hover.
+ * Same focus ring treatment as .footer-link in LoginPage.
+ */
+.ghost-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.ghost-button:hover {
+  color: var(--hcl-navy);
+  border-color: var(--hcl-navy);
+  background: var(--surface-sub);
+}
+
+.ghost-button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ── page-shell ─────────────────────────────────────────────────────────────── */
+/*
+ * Main content area. Fills the remaining grid row.
+ * Generous padding so page content never bleeds to the window edge.
+ * overflow-y:auto enables independent scrolling if the content grows.
+ */
+.page-shell {
+  padding: 2.5rem 0;
+  overflow-y: auto;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 1rem;
+    height: 60px;
+  }
+
+  .topbar h1 {
+    font-size: 0.875rem;
+  }
+
+  .navbar {
+    padding: 0 0.5rem;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .navbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 0 0.625rem;
+    font-size: 0.75rem;
+  }
+
+  .nav-link::after {
+    left: 0.625rem;
+    right: 0.625rem;
+  }
+
+  .page-shell {
+    padding: 1.25rem 0;
+  }
+  .shell-container {
+    padding: 0 1rem;
+  }
+
+  .muted-label {
+    display: none;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .nav-link::after,
+  .ghost-button {
+    transition: none !important;
+  }
+}

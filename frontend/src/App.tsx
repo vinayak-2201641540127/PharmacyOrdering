@@ -16,43 +16,16 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
-          <AppShell>
-            <Routes>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            
+            <Route element={<AppShell />}>
               <Route path="/" element={<Navigate replace to="/products" />} />
-              <Route path="/login" element={<LoginPage />} />
               <Route path="/products" element={<ProductsPage />} />
-              <Route
-                path="/upload"
-                element={
-                  <ProtectedRoute>
-                    <UploadPrescriptionPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/checkout"
-                element={
-                  <ProtectedRoute>
-                    <CheckoutPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/orders"
-                element={
-                  <ProtectedRoute>
-                    <MyOrdersPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/orders/:orderId"
-                element={
-                  <ProtectedRoute>
-                    <OrderDetailsPage />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="/upload" element={<ProtectedRoute><UploadPrescriptionPage /></ProtectedRoute>} />
+              <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
+              <Route path="/orders" element={<ProtectedRoute><MyOrdersPage /></ProtectedRoute>} />
+              <Route path="/orders/:orderId" element={<ProtectedRoute><OrderDetailsPage /></ProtectedRoute>} />
               <Route
                 path="/admin/prescriptions"
                 element={
@@ -62,8 +35,8 @@ export default function App() {
                 }
               />
               <Route path="*" element={<Navigate replace to="/products" />} />
-            </Routes>
-          </AppShell>
+            </Route>
+          </Routes>
         </CartProvider>
       </AuthProvider>
     </BrowserRouter>

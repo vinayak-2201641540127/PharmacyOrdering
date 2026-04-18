@@ -42,8 +42,18 @@ const loadSession = (): StoredSession | null => {
   }
 };
 
+const MOCK_DESIGN_SESSION: StoredSession = {
+  accessToken: 'mock-design-token-123',
+  user: {
+    id: 999,
+    fullName: 'Frontend Designer',
+    email: 'designer@hclpharma.com',
+    role: 'ADMIN',
+  },
+};
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [session, setSession] = useState<StoredSession | null>(() => loadSession());
+  const [session, setSession] = useState<StoredSession | null>(() => loadSession() || MOCK_DESIGN_SESSION);
 
   useEffect(() => {
     setApiToken(session?.accessToken ?? null);

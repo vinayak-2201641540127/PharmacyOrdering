@@ -1,0 +1,308 @@
+/* ─── ProductsPage.css — Premium Catalogue Redesign ─────────────────────── */
+
+/* ── Container ── */
+.products-root {
+  position: relative;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  animation: fadeIn var(--transition-normal) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Hero Unit ── */
+.catalogue-hero {
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+@media (min-width: 768px) {
+  .catalogue-hero {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+/* Decorative orb inside hero to match login aesthetic */
+.catalogue-hero::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--hcl-teal) 0%, transparent 65%);
+  opacity: 0.12;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.hero-header {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--hcl-teal);
+  margin: 0 0 0.75rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  margin: 0 0 0.5rem;
+  line-height: 1.1;
+  max-width: 600px;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Search Input (Production Grade) ── */
+.search-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 340px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 1.25rem;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  height: 56px;
+  padding: 0 1.5rem 0 3.25rem;
+  border: 1.5px solid var(--border);
+  border-radius: calc(var(--radius-lg) + 2px);
+  background: var(--surface-sub);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-primary);
+  transition: all var(--transition-normal);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-input:hover {
+  border-color: rgba(13, 43, 94, 0.2);
+}
+
+.search-input:focus {
+  border-color: var(--border-focus);
+  background: var(--surface);
+  box-shadow: 0 0 0 4px rgba(10,126,110,0.12);
+}
+
+/* ── Grid ── */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+
+/* ── Premium Product Card ── */
+.rx-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  padding: 1.75rem;
+  height: 100%;
+  transition: all var(--transition-normal);
+  cursor: default;
+}
+
+.rx-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+}
+
+.rx-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(13,43,94,0.16);
+}
+
+.rx-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Card Header ── */
+.rx-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.rx-card-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin: 0 0 0.4rem;
+  line-height: 1.2;
+}
+
+.rx-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 4.65em; /* reserves exact height for 3 lines */
+}
+
+/* ── Precision Pills ── */
+.rx-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.rx-pill--warning {
+  color: #92400E;
+  background: #FEF3C7;
+  border: 1px solid #FCD34D;
+}
+
+/* ── Card Footer ── */
+.rx-card-footer {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.rx-card-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.rx-card-price {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  margin: 0;
+}
+
+.rx-card-stock {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.rx-card-stock.low { color: var(--hcl-red); font-weight: 600; }
+.rx-card-stock.none { color: var(--text-muted); font-style: italic; }
+
+/* ── Add to Cart Button ── */
+.rx-add-btn {
+  width: 100%;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-sub);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--hcl-navy);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.rx-add-btn svg {
+  transition: transform var(--transition-fast);
+}
+
+.rx-add-btn:hover:not(:disabled) {
+  background: var(--hcl-navy);
+  border-color: var(--hcl-navy);
+  color: #fff;
+}
+
+.rx-add-btn:hover:not(:disabled) svg {
+  transform: translateY(-2px);
+}
+
+.rx-add-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.rx-add-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--surface-sub);
+  color: var(--text-muted);
+  border-color: transparent;
+}
