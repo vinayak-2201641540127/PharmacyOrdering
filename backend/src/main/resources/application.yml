@@ -2,9 +2,9 @@ spring:
   application:
     name: pharmacy-ordering-backend
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:hclPharma}}
+    url: ${DATABASE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:hclpharma}}
     username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:Vin.s2004@}
+    password: ${DATABASE_PASSWORD:rudsi}
   jpa:
     open-in-view: false
     hibernate:
