@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: pharmacy-ordering-backend
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:hclPharma}}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:Vin.s2004@}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /api
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:cGhhcm1hY3ktb3JkZXJpbmctbG9jYWwtc2VjcmV0LW11c3QtYmUtcmVwbGFjZWQtZm9yLXByb2R1Y3Rpb24tdXNl}
+    access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:PT24H}
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}
+  storage:
+    prescriptions-dir: ${PRESCRIPTION_STORAGE_DIR:./storage/prescriptions}
+  bootstrap-admin:
+    full-name: ${BOOTSTRAP_ADMIN_FULL_NAME:System Administrator}
+    email: ${BOOTSTRAP_ADMIN_EMAIL:}
+    password: ${BOOTSTRAP_ADMIN_PASSWORD:}
